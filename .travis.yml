@@ -15,6 +15,7 @@ script:
   - go get -t -v github.com/magiconair/properties
   - go get -t -v github.com/mitchellh/mapstructure
   - go get -t -v github.com/pelletier/go-toml
+  - go get -t -v github.com/spf13/cobra
   - go get -t -v github.com/spf13/afero
   - env GO111MODULE=on go build
   - env GO111MODULE=on go test
