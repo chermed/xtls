@@ -2,7 +2,7 @@ language: go
 
 go: 1.5
 
-install: go build -o sample
+install: go build -o xtls
 
 script: go test ./...
 
@@ -17,18 +17,18 @@ before_deploy:
       GOARCH=${PLATFORM#*/}
 
       if [ "$GOOS" = "windows" ]; then
-        build_cmd="GOOS=$GOOS GOARCH=$GOARCH go build -o sample -ldflags '-w -s'"
+        build_cmd="GOOS=$GOOS GOARCH=$GOARCH go build -o xtls -ldflags '-w -s'"
       else
-        build_cmd="CGO_ENABLED=0 GOOS=$GOOS GOARCH=$GOARCH go build -o sample -ldflags '-d -w -s'"
+        build_cmd="CGO_ENABLED=0 GOOS=$GOOS GOARCH=$GOARCH go build -o xtls -ldflags '-d -w -s'"
       fi
       if ! eval $build_cmd; then
-        echo "Failed building sample for $PLATFORM" && return 1
+        echo "Failed building xtls for $PLATFORM" && return 1
       fi
 
       if [ "$GOOS" = "windows" ]; then
-        zip sample-${GOOS}-${GOARCH}.zip sample
+        zip xtls-${GOOS}-${GOARCH}.zip xtls
       else
-        tar cvzf sample-${GOOS}-${GOARCH}.tgz sample
+        tar cvzf xtls-${GOOS}-${GOARCH}.tgz xtls
       fi
     done
 
@@ -38,19 +38,19 @@ deploy:
   provider: releases
   api_key: $AUTH_TOKEN
   file:
-    - "sample-darwin-386.tgz"
-    - "sample-darwin-amd64.tgz"
+    - "xtls-darwin-386.tgz"
+    - "xtls-darwin-amd64.tgz"
 
-    - "sample-freebsd-386.tgz"
-    - "sample-freebsd-arm.tgz"
-    - "sample-freebsd-amd64.tgz"
+    - "xtls-freebsd-386.tgz"
+    - "xtls-freebsd-arm.tgz"
+    - "xtls-freebsd-amd64.tgz"
 
-    - "sample-linux-386.tgz"
-    - "sample-linux-arm.tgz"
-    - "sample-linux-amd64.tgz"
+    - "xtls-linux-386.tgz"
+    - "xtls-linux-arm.tgz"
+    - "xtls-linux-amd64.tgz"
 
-    - "sample-windows-386.zip"
-    - "sample-windows-amd64.zip"
+    - "xtls-windows-386.zip"
+    - "xtls-windows-amd64.zip"
 
   skip_cleanup: true
   on:
