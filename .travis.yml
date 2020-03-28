@@ -11,6 +11,7 @@ before_deploy:
 
  # build binary for all archs
   - |
+    go get github.com/spf13/cobra
     for PLATFORM in "${PLATFORMS[@]}"; do
       echo "Building $PLATFORM"
       GOOS=${PLATFORM%/*}
